@@ -8,6 +8,7 @@ import MenuItems as menu
 import GameItems as game
 import Variables as v
 import pygame as py
+import math
 import sys
 
 
@@ -25,33 +26,34 @@ s = 1/2 (u + v)t
 v^2 = u^2 + 2 as
 
 NOTES
----> is positive velocity and displacement
-<--- is negative velocity and displacement
+---> is positive velocity and displacement  }
+<--- is negative velocity and displacement  } Verticle velocities
 
+Up is also positive velocity and displacement    }
+down is also negative velocity and displacement  } Horizontal velocities
 
 '''
 
 # Particle
 class particle:
-    def __init__():
-        self.posX, self.posY = pos[0], pos[1]
+    def __init__(self, pos, size, colour=v.black, thickness=1, velocity=0):
+        self.pos = pos
         self.size = size
         self.colour = colour
-        self.thickness = 1
+        self.colour = colour
+        self.thickness = thickness
+        self.velocity = velocity
+        
+    def display(self):
+        py.draw.circle(v.screen, self.colour, self.pos, self.size, self.thickness)
 
 
 
-
-
-
-
-
-
-class projectile:
+class projectile():
     '''Manages accurate movement of projectiles
 
     Requires unit vectors for vertical and horizontal (i & j respectively).
-    Uses equation s = 
+    Uses equation s = ut + 1/2 at^2 
     '''
     def __init__(self, item, **kwargs):
         # Initialising Main Variables
@@ -75,4 +77,6 @@ class projectile:
                 print("keyword arguments must be SUVAT. Note, not all variables are required")
 
     def update(self):
-        ''''''
+        pass
+
+
