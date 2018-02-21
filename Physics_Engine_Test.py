@@ -1,6 +1,6 @@
 
 # =========================================================================== #
-''' Physics Engine Tests and planning program '''
+""" Physics Engine Tests and planning program """
 # =========================================================================== #
 
 
@@ -32,15 +32,6 @@ NOTES
 Up is also positive velocity and displacement    }
 down is also negative velocity and displacement  } Horizontal velocities
 
-EXAMPLE OF DRAG AND ELASTICITY IMPLEMENTATION
-(When moving without other influence)
-drag = 0.966
-speed *= drag
-
-(When bouncing off of a surface)
-elasticity = 0.75
-speed *= elasticity 
-
 '''
 
 # Particle
@@ -58,7 +49,6 @@ class particle:
 
 
 
-# Projectile Managament - Currently useless and doesnt work
 class projectile():
     '''Manages accurate movement of projectiles
 

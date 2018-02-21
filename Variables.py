@@ -1,7 +1,5 @@
 
-# =========================================================================== #
-''' Variables File '''
-# =========================================================================== #
+# Variables File #
 
 
 
@@ -13,11 +11,10 @@ screen = None
 # Colour Variables
 black = (0, 0, 0)
 white = (255, 255, 255)
-screenColour = white
 
 
 # Particle Variables
-noOfParticles = 12
+noOfParticles = 10
 
 
 # Text Variables
