@@ -1,6 +1,6 @@
 
 # =========================================================================== #
-""" Physics Engine Tests and planning program """
+""" Physics Engine Tests Main """
 # =========================================================================== #
 
 
@@ -10,53 +10,75 @@ import GameItems as game
 import Variables as v
 import Objects as o
 import pygame as py
-import random
 import sys
 
 
-'''Defining Sprites and Objects'''
-# Particles: (pos, size, colour=v.black, thickness=1, velocity=0)
-particles = []
-for i in range(v.noOfParticles):
-    random_size = random.randint(10, 20)
-    random_pos = (random.randint(random_size, v.width - random_size), random.randint(random_size, v.height - random_size))
-    particles.append(physics.particle(random_pos, random_size))
-
-
-# Buttons: (text, textColour, textSize, pos, buttonColour, ID, buttonSize=(0, 0), textCentred=False, centred=False)
-
-
-# Text Labels: (text, textColour, textSize, pos, labelColour, centred=False)
-
-
-class loops:
+class Loops:
     def __init__(self):
         py.init()
-        v.screen = py.display.set_mode(v.size)
+        v.screen = py.display.set_mode(v.size, py.RESIZABLE)
         py.display.set_caption("Physics Engine Tests")
         v.screen.fill(v.white)
 
-    def quit_check(self):
-        for event in py.event.get():
+    @staticmethod
+    def quit_check():
+        for event in v.events:
             if event.type == py.QUIT:
                 sys.exit()
+            if event.type == py.VIDEORESIZE:
+                py.display.set_mode(event.size, py.RESIZABLE)
+                v.size = event.size
 
     def main_menu(self):
         while True:
+            v.events = py.event.get()
             self.quit_check()
+            v.screen.fill(v.white)
+            #print(v.screen.get_rect())
 
-            for i in particles:
-                i.display()
+            for event in v.events:
+                if event.type == py.KEYDOWN:
+                    self.game_loop()
+
 
             py.display.flip()
 
     def game_loop(self):
+        clock = py.time.Clock()
         while True:
+            clock.tick(60)
+            v.events = py.event.get()
             self.quit_check()
+
+            v.screen.fill(v.white)
+            for i in o.particles:
+                i.draw()
+                i.update()
+
+            # Movement for selected particles
+            keys = py.key.get_pressed()
+            if keys[py.K_LEFT]:
+                for i in o.particles:
+                    if i.selected:
+                        i.velocity[0] -= 0.5
+            elif keys[py.K_RIGHT]:
+                for i in o.particles:
+                    if i.selected:
+                        i.velocity[0] += 0.5
+            elif keys[py.K_UP]:
+                for i in o.particles:
+                    if i.selected:
+                        i.velocity[1] -= 0.5
+            elif keys[py.K_DOWN]:
+                for i in o.particles:
+                    if i.selected:
+                        i.velocity[1] += 0.5
+
+            py.display.flip()
 
 
 if __name__ == "__main__":
-    L = loops()
+    L = Loops()
     L.main_menu()
 
 

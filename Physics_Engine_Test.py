@@ -1,6 +1,6 @@
 
 # =========================================================================== #
-""" Physics Engine Tests and planning program """
+""" Physics Engine Tests """
 # =========================================================================== #
 
 
@@ -32,20 +32,54 @@ NOTES
 Up is also positive velocity and displacement    }
 down is also negative velocity and displacement  } Horizontal velocities
 
+drag = 0.75
+velocity *= drag
 '''
 
 # Particle
-class particle:
-    def __init__(self, pos, size, colour=v.black, thickness=1, velocity=0):
-        self.pos = pos
+class particle(py.sprite.Sprite):
+    def __init__(self, pos, size, colour=v.black, thickness=1, selected=False):
+        super().__init__()
+        self.pos = list(pos)
         self.size = size
         self.colour = colour
-        self.colour = colour
+        self.__colour = colour
+        self.hoveredColour = (0, 0, 255)
+        self.selectedColour = (255, 0, 0)
         self.thickness = thickness
-        self.velocity = velocity
+        self.velocity = [0, 0]
+        self.rect = py.Rect(0, 0, size * 2, size * 2)
+        self.hovered = False
+        self.selected = selected
         
-    def display(self):
-        py.draw.circle(v.screen, self.colour, self.pos, self.size, self.thickness)
+    def draw(self):
+        py.draw.circle(v.screen, self.colour, self.rect.center, self.size, self.thickness)
+
+    def update(self):
+        self.pos[0] += int(self.velocity[0])
+        self.pos[1] += int(self.velocity[1])
+
+        self.velocity[0] *= 0.99
+        self.velocity[1] *= 0.99
+
+        # Hover Checking and Updating
+        if self.rect.collidepoint(py.mouse.get_pos()):
+            self.hovered = True
+            self.colour = self.hoveredColour
+        else:
+            self.hovered = False
+            self.colour = self.__colour
+
+        for event in v.events:
+            if event.type == py.MOUSEBUTTONDOWN:
+                if self.hovered:
+                    self.selected = not self.selected
+
+        if self.selected:
+            self.colour = self.selectedColour
+
+
+        self.rect.center = self.pos
 
 
 
