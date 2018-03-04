@@ -34,12 +34,10 @@ class Loops:
             v.events = py.event.get()
             self.quit_check()
             v.screen.fill(v.white)
-            #print(v.screen.get_rect())
 
             for event in v.events:
                 if event.type == py.KEYDOWN:
                     self.game_loop()
-
 
             py.display.flip()
 
@@ -53,6 +51,7 @@ class Loops:
             v.screen.fill(v.white)
             for i in o.particles:
                 i.draw()
+                i.move()
                 i.update()
 
             # Movement for selected particles
