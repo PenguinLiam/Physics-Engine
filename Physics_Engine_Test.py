@@ -37,7 +37,9 @@ velocity *= drag
 '''
 
 
-class Projectile():
+# Not a functioning class...
+
+class Projectile:
     """Manages accurate movement of projectiles
 
     Requires unit vectors for vertical and horizontal (i & j respectively).
