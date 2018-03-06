@@ -37,12 +37,12 @@ velocity *= drag
 '''
 
 
-class projectile():
-    '''Manages accurate movement of projectiles
+class Projectile():
+    """Manages accurate movement of projectiles
 
     Requires unit vectors for vertical and horizontal (i & j respectively).
     Uses equation s = ut + 1/2 at^2 
-    '''
+    """
     def __init__(self, item, **kwargs):
         # Initialising Main Variables
         self.item = item
